@@ -63,3 +63,7 @@ def test_post_login_unsuccessful():
     payload = {"email": "peter@klaven"}
     response = requests.post('https://reqres.in/api/login', data=payload)
     assert response.status_code == 400
+    schema = schema_path("post_login_unsuccessful_response.json")
+    with open(schema) as file:
+        validate(response.json(), schema=json.loads(file.read()))
+    assert response.json() == {"error": "Missing password"}
