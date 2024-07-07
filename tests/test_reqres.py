@@ -34,7 +34,7 @@ def test_post_create():
 
 def test_put_update():
     name = "Alma"
-    job = "Team QA"
+    job = "Team Lead QA"
     payload = {"name": name, "job": job}
     response = requests.put(f'{url}/2', data=payload)
     assert response.status_code == 200
@@ -46,14 +46,14 @@ def test_put_update():
 
 
 def test_delete():
-    payload = {"name": "Alma", "job": "Team QA"}
+    payload = {"name": "Alma", "job": "Team Lead QA"}
     response = requests.delete(f'{url}/2', data=payload)
     assert response.status_code == 204
     assert response.text == ''
 
 
 def test_get_not_found():
-    payload = {"name": "Alma", "job": "Team QA"}
+    payload = {"name": "Alma", "job": "Team Lead QA"}
     response = requests.get(f'{url}/unknown/2', data=payload)
     assert response.status_code == 404
     assert response.json() == {}
@@ -66,4 +66,4 @@ def test_post_login_unsuccessful():
     schema = schema_path("post_login_unsuccessful_response.json")
     with open(schema) as file:
         validate(response.json(), schema=json.loads(file.read()))
-    assert response.json() == {"error": "Missing password"}
+    assert response.json() == {"error": "password"}
